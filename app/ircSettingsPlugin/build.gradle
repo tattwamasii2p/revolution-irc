@@ -5,9 +5,8 @@ group = 'io.mrarm.irc'
 version = '1.0'
 
 repositories {
-    mavenCentral()
     google()
-    jcenter()
+    mavenCentral()
 }
 
 gradlePlugin {

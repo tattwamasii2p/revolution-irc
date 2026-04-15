@@ -7,10 +7,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ServiceInfo;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import android.os.Message;
@@ -99,6 +101,7 @@ public class IRCService extends Service implements ServerConnectionManager.Conne
         ServerPingScheduler.getInstance(this).stop();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent != null ? intent.getAction() : null;
@@ -134,19 +137,20 @@ public class IRCService extends Service implements ServerConnectionManager.Conne
             Intent mainIntent = MainActivity.getLaunchIntent(this, null, null);
             PendingIntent exitIntent = PendingIntent.getBroadcast(this, EXIT_ACTION_ID,
                     ExitActionReceiver.getIntent(this),
-                    PendingIntent.FLAG_CANCEL_CURRENT);
+                    PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this, IDLE_NOTIFICATION_CHANNEL)
                     .setContentTitle(getString(R.string.service_title))
                     .setContentText(b.toString())
                     .setPriority(NotificationCompat.PRIORITY_MIN)
                     .setOnlyAlertOnce(true)
-                    .setContentIntent(PendingIntent.getActivity(this, IDLE_NOTIFICATION_ID, mainIntent, PendingIntent.FLAG_CANCEL_CURRENT))
+                    .setContentIntent(PendingIntent.getActivity(this, IDLE_NOTIFICATION_ID, mainIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT))
                     .addAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_close : R.drawable.ic_notification_close, getString(R.string.action_exit), exitIntent);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 notification.setSmallIcon(R.drawable.ic_server_connected);
             else
                 notification.setSmallIcon(R.drawable.ic_notification_connected);
-            startForeground(IDLE_NOTIFICATION_ID, notification.build());
+            startForeground(IDLE_NOTIFICATION_ID, notification.build(),
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
         }
         return START_STICKY;
     }

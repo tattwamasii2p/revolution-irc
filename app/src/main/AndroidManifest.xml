@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <application
         android:name=".IRCApplication"
@@ -128,7 +130,7 @@
             android:exported="true"
             android:label="@string/title_activity_dcc" />
 
-        <service android:name=".IRCService" />
+        <service android:name=".IRCService" android:foregroundServiceType="specialUse" />
         <service
             android:name=".job.ServerPingJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
