@@ -173,16 +173,16 @@ public class ChannelNotificationManager implements NotificationCountStorage.OnCh
         PendingIntent intent = PendingIntent.getActivity(context, mNotificationId,
                 MainActivity.getLaunchIntent(context, mConnection, mChannel,
                         lastMessage.mMessageId.toString()),
-                PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT);
         PendingIntent dismissIntent = PendingIntent.getBroadcast(context,
                 CHAT_DISMISS_INTENT_ID_START + mNotificationId,
                 NotificationActionReceiver.getDismissIntent(context, mConnection, mChannel),
-                PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT);
         PendingIntent replyIntent = PendingIntent.getBroadcast(context,
                 CHAT_REPLY_INTENT_ID_START + mNotificationId,
                 NotificationActionReceiver.getReplyIntent(context, mConnection, mChannel,
                         mNotificationId),
-                PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0) | PendingIntent.FLAG_UPDATE_CURRENT);
         int replyIcon = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ?
                 R.drawable.ic_reply : R.drawable.ic_notification_reply;
         NotificationCompat.Action replyAction = new NotificationCompat.Action.Builder(

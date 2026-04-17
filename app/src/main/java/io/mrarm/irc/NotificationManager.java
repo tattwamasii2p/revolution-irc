@@ -154,7 +154,7 @@ public class NotificationManager {
         PendingIntent dismissIntent = PendingIntent.getBroadcast(context,
                 ChannelNotificationManager.CHAT_DISMISS_INTENT_ID_START + CHAT_SUMMARY_NOTIFICATION_ID,
                 ChannelNotificationManager.NotificationActionReceiver.getDismissIntentForSummary(context),
-                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT);
         notification
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_notification_message)
@@ -165,7 +165,7 @@ public class NotificationManager {
                 .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
         if (isLong) {
             PendingIntent intent = PendingIntent.getActivity(context, CHAT_SUMMARY_NOTIFICATION_ID,
-                    MainActivity.getLaunchIntent(context, null, null), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
+                    MainActivity.getLaunchIntent(context, null, null), (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT);
             notification
                     .setContentTitle(context.getResources().getQuantityString(R.plurals.notify_multiple_messages, notificationCount, notificationCount))
                     .setContentText(longBuilder.toString())
@@ -173,7 +173,7 @@ public class NotificationManager {
         } else {
             PendingIntent intent = PendingIntent.getActivity(context, CHAT_SUMMARY_NOTIFICATION_ID,
                     MainActivity.getLaunchIntent(context, first.getConnection(), first.getChannel()),
-                    PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
+                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT);
             notification
                     .setContentTitle(first.getChannel())
                     .setContentText(first.getNotificationMessage(first.getNotificationMessageCount() - 1).getNotificationText(context))
