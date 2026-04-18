@@ -31,6 +31,7 @@ android {
     namespace 'io.mrarm.irc'
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
     }
 }
@@ -46,7 +47,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation 'com.google.android.material:material:1.8.0'
-    implementation 'com.github.mcmrarm:chatlib:0.3.3'
+    implementation 'com.github.mcmrarm:chatlib:hypn1.0.001-master-SNAPSHOT'
     implementation 'com.github.mcmrarm:chatlib-android-core:0.1.0'
     implementation 'com.github.mcmrarm:chatlib-android-storage:0.3.1'
     implementation 'com.google.code.gson:gson:2.8.6'
