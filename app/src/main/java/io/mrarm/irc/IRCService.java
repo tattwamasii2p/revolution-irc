@@ -137,14 +137,14 @@ public class IRCService extends Service implements ServerConnectionManager.Conne
             Intent mainIntent = MainActivity.getLaunchIntent(this, null, null);
             PendingIntent exitIntent = PendingIntent.getBroadcast(this, EXIT_ACTION_ID,
                     ExitActionReceiver.getIntent(this),
-                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT);
+                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_MUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT);
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this, IDLE_NOTIFICATION_CHANNEL)
                     .setContentTitle(getString(R.string.service_title))
                     .setContentText(b.toString())
                     .setPriority(NotificationCompat.PRIORITY_MIN)
                     .setOnlyAlertOnce(true)
                     .setContentIntent(PendingIntent.getActivity(this, IDLE_NOTIFICATION_ID, mainIntent,
-                            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT))
+                            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_MUTABLE : 0) | PendingIntent.FLAG_CANCEL_CURRENT))
                     .addAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_close : R.drawable.ic_notification_close,
                             getString(R.string.action_exit), exitIntent);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
