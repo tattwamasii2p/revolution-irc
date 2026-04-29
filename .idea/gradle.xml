@@ -7,9 +7,9 @@
         <compositeConfiguration>
           <compositeBuild compositeDefinitionSource="SCRIPT">
             <builds>
-              <build path="/media/user/datasata1_1/vcs_zsata/revolution-irc/app/ircSettingsPlugin" name="build">
+              <build path="/media/user/datasata1_1/vcs_zsata/revolution-irc-umbrella/revolution-irc/app/ircSettingsPlugin" name="build">
                 <projects>
-                  <project path="/media/user/datasata1_1/vcs_zsata/revolution-irc/app/ircSettingsPlugin" />
+                  <project path="/media/user/datasata1_1/vcs_zsata/revolution-irc-umbrella/revolution-irc/app/ircSettingsPlugin" />
                 </projects>
               </build>
             </builds>
@@ -20,9 +20,9 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="/media/user/datasata1_1/vcs_zsata/revolution-irc" />
-            <option value="/media/user/datasata1_1/vcs_zsata/revolution-irc/app" />
-            <option value="/media/user/datasata1_1/vcs_zsata/revolution-irc/app/ircSettingsPlugin" />
+            <option value="/media/user/datasata1_1/vcs_zsata/revolution-irc-umbrella/revolution-irc" />
+            <option value="/media/user/datasata1_1/vcs_zsata/revolution-irc-umbrella/revolution-irc/app" />
+            <option value="/media/user/datasata1_1/vcs_zsata/revolution-irc-umbrella/revolution-irc/app/ircSettingsPlugin" />
           </set>
         </option>
       </GradleProjectSettings>

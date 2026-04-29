@@ -3,6 +3,9 @@ package io.mrarm.irc;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -79,14 +82,25 @@ public class ServerConnectionManager {
         }
 
         if (servers != null) {
-            ServerConfigManager configManager = ServerConfigManager.getInstance(context);
-            for (ConnectedServerInfo server : servers.servers) {
-                ServerConfigData configData = configManager.findServer(server.uuid);
-                if (configData != null) {
-                    try {
-                        createConnection(configData, server.channels, false);
-                    } catch (NickNotSetException ignored) {
-                    }
+            // Restore connections on a HandlerThread to avoid blocking the main thread during app
+            // startup. This is critical for Honor/Huawei devices with App Fast Hibernation (F_Z).
+            // Using HandlerThread instead of plain Thread because SQLiteMessageStorageApi creates
+            // a Handler internally which requires a Looper.
+            final ConnectedServersList finalServers = servers;
+            HandlerThread restoreThread = new HandlerThread("ServerConnectionRestore");
+            restoreThread.start();
+            new Handler(restoreThread.getLooper()).post(() -> restoreConnections(finalServers));
+        }
+    }
+
+    private void restoreConnections(ConnectedServersList servers) {
+        ServerConfigManager configManager = ServerConfigManager.getInstance(mContext);
+        for (ConnectedServerInfo server : servers.servers) {
+            ServerConfigData configData = configManager.findServer(server.uuid);
+            if (configData != null) {
+                try {
+                    createConnection(configData, server.channels, false);
+                } catch (NickNotSetException ignored) {
                 }
             }
         }
