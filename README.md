@@ -2,7 +2,7 @@
 
 ## Development
 ### Dependencies
- * https://github.com/tattwamasii2p/revolution-irc-chatlib/tree/patched1
+ * https://github.com/tattwamasii2p/revolution-irc-chatlib
  * https://github.com/tattwamasii2p/revolution-irc-chatlib-core
  * https://github.com/tattwamasii2p/revolution-irc-chatlib-storage
    
