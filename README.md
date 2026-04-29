@@ -1,5 +1,14 @@
-Revolution IRC
-==============
+# Rev-NG IRC client for Android, a fork of Revolution-IRC
+
+## Development
+### Dependencies
+ * https://github.com/tattwamasii2p/revolution-irc-chatlib/tree/patched1
+ * https://github.com/tattwamasii2p/revolution-irc-chatlib-core
+ * https://github.com/tattwamasii2p/revolution-irc-chatlib-storage
+   
+# Obsolete content follows
+
+# Revolution IRC
  
 Revolution IRC Client is the next-generation IRC client for Android, made with design and functionality in mind. Let's start this revolution!
 
